@@ -11,7 +11,7 @@
     <h1>All Students</h1>
     {% for Students in all_students %}
     {{ Students.name}} - {{ Students.gender}}
-    <img src="{{ student.image }}" alt="">
+    <img src="{{ Students.image.url }}" alt="">
     {% endfor %}
 </body>
 

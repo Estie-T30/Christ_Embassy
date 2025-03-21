@@ -1,5 +1,6 @@
 <!-- parent template for about.html and home.html -->
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,8 +43,10 @@
 	  <div class="row">
 	    <div class="col-md-8">
             <h1>Create Students</h1>
-			<form action="">
-				{{ form }}
+			<form action="" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form|crispy }}
+				<button class="btn btn-success">Create</button>
 			</form>
 	    </div>
 	    <div class="col-md-4">

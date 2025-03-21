@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Student
 from .forms import StudentForm
 
@@ -13,12 +13,22 @@ def retrieve_student(request, id_from_the_web):
     Students = Student.objects.get(id=id_from_the_web)
     return render(request, 'Students/one_student.html', {'Students': Students})
 
-def create_student(request):
-    return render(request, 'Students/create_student.html',)
+# def create_student(request):
+#     return render(request, 'Students/create_student.html',)
+
+# def create_student(request):
+#     form = StudentForm()
+#     return render(request, 'Students/create_student.html', {'form': form})
 
 def create_student(request):
-    form = StudentForm()
-    return render(request, 'Students/create_student.html', {'form': form})
+    if request.method == "GET":
+        form = StudentForm()
+    else:
+        form = StudentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save() #save the form to the database
+        return redirect("Students/")
+    return render(request, "students/create_student.html", {'form': form})
 
 
 
